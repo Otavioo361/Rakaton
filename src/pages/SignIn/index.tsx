@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { useNavigation } from '@react-navigation/native';
-import { supabase } from '../../services/supabase'; // Certifique-se de que o caminho está correto
-import styles from './styles';
+// import { supabase } from '../../services/supabase'; // Comentado para desativar a verificação no Supabase
+import styles from "./styles";
 
 export default function SignIn() {
   const navigation = useNavigation();
@@ -12,16 +12,28 @@ export default function SignIn() {
   const [error, setError] = useState('');
 
   const handleSignIn = async () => {
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password
+    setError('');
+
+    if (email === 'admin@admin.com' && password === 'admin') {
+      navigation.navigate('Admin'); // Vai para a tela de administrador
+    } else {
+      navigation.navigate('Home'); // Vai para a tela Home
+    }
+
+    // Código comentado para desativar a verificação no Supabase
+    /*
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: email.trim(),
+      password,
     });
 
     if (error) {
-      setError(error.message);
-    } else {
-      navigation.navigate('Home');
+      console.error('Erro ao fazer login:', error.message);
+      setError('Credenciais de login inválidas');
+    } else if (data) {
+      navigation.navigate('Home'); // Vai para a tela Home
     }
+    */
   };
 
   return (
@@ -41,18 +53,18 @@ export default function SignIn() {
         <Text style={styles.title}>E-mail</Text>
         <TextInput
           placeholder="Informe e-mail de acesso..."
+          style={styles.input}
           value={email}
           onChangeText={setEmail}
-          style={styles.input}
         />
 
         <Text style={styles.title}>Senha</Text>
         <TextInput
           placeholder="Informe senha de acesso..."
           secureTextEntry={true}
+          style={styles.input}
           value={password}
           onChangeText={setPassword}
-          style={styles.input}
         />
 
         {error ? <Text style={styles.errorText}>{error}</Text> : null}
@@ -66,7 +78,7 @@ export default function SignIn() {
 
         <TouchableOpacity
           style={styles.buttonRegister}
-          onPress={() => navigation.navigate('SignUp')} // Certifique-se de que 'SignUp' está correto
+          onPress={() => navigation.navigate('SignUp')}
         >
           <Text style={styles.registerText}>
             Não possui uma conta? Registre-se...
