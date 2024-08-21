@@ -24,3 +24,8 @@ Tela usuario
 Relatorio do aplicativo
 
 [aax1.pdf](https://github.com/user-attachments/files/16694819/aax1.pdf)
+
+
+
+Video do aplicativo:
+https://drive.google.com/file/d/1Iu6kgbgGSsWznXq5jcvcMqa7nA96N7-8/view?usp=sharing
