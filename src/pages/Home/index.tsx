@@ -11,7 +11,7 @@ const initialMovements = [
 
 export default function Home() {
   const [modalVisible, setModalVisible] = useState(false);
-  const [tickets] = useState<number>(5); // Defina o número inicial de tickets aqui
+  const [tickets] = useState<number>(2); // Defina o número inicial de tickets aqui
   const [movements] = useState(initialMovements);
   const navigation = useNavigation();
 

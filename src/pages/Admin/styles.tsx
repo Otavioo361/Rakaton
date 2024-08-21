@@ -3,8 +3,8 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 20,
         backgroundColor: '#fff',
+        padding: 20,
     },
     title: {
         fontSize: 24,
@@ -13,38 +13,37 @@ const styles = StyleSheet.create({
     },
     input: {
         borderBottomWidth: 1,
-        borderBottomColor: '#ccc',
-        marginBottom: 20,
-        fontSize: 18,
-        padding: 8,
+        height: 40,
+        marginBottom: 10,
+        fontSize: 16,
+        paddingHorizontal: 10,
     },
     button: {
-        backgroundColor: '#871cfe',
-        paddingVertical: 12,
-        borderRadius: 8,
-        alignItems: 'center',
-        marginBottom: 20,
+        backgroundColor: '#36691D',
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        borderRadius: 5,
+        marginVertical: 5,
     },
     buttonText: {
         color: '#fff',
-        fontSize: 18,
-        fontWeight: 'bold',
-    },
-    logoutButton: {
-        backgroundColor: '#e74c3c',
-        paddingVertical: 12,
-        borderRadius: 8,
-        alignItems: 'center',
-        marginTop: 20,
-    },
-    errorText: {
-        color: 'red',
         fontSize: 16,
-        marginTop: 10,
+        textAlign: 'center',
     },
     infoText: {
         fontSize: 16,
+        marginBottom: 10,
+    },
+    errorText: {
+        color: '#e74c3c',
         marginTop: 10,
+    },
+    logoutButton: {
+        backgroundColor: '#e74c3c',
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        borderRadius: 5,
+        marginTop: 20,
     },
 });
 

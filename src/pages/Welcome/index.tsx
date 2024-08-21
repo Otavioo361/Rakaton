@@ -20,7 +20,7 @@ export default function Welcome() {
       <View style={styles.containerLogo}>
         <Animatable.Image
           animation="flipInY"
-          source={require("../../assets/logo.png.jpg")}
+          source={require("../../assets/Logotipo_IFET.png")}
           style={{ width: "100%" }}
           resizeMode="contain"
         />

@@ -7,18 +7,26 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   header: {
+    borderRadius: 16,
     marginBottom: 20,
+    padding: 16,
+    backgroundColor: "#1a1a1a",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
+
   username: {
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 10,
+    color: "#ffff"
   },
   buttonContainer: {
     marginTop: 20, // Adiciona espaço acima do botão
   },
   button: {
-    backgroundColor: '#871cfe',
+    backgroundColor: '#36691D',
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 5,
@@ -42,23 +50,33 @@ const styles = StyleSheet.create({
   ticketHeader: {
     fontSize: 18,
     fontWeight: 'bold',
+    color: '#fff',
   },
   ticketCount: {
     fontSize: 32,
     fontWeight: 'bold',
     marginTop: 10,
+    color: '#fff',
   },
   movementsContainer: {
     flex: 1,
+    borderRadius: 16,
+    marginBottom: 10,
+    paddingTop: 20,
+    paddingHorizontal: 80,
+    backgroundColor: '#1a1a1a'
+
   },
   movementsHeader: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 10,
+    color: '#fff',
   },
   movementText: {
     fontSize: 16,
     marginVertical: 5,
+    color: '#ffff'
   },
   modalContainer: {
     flex: 1,
@@ -77,7 +95,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   modalButton: {
-    backgroundColor: '#871cfe',
+    backgroundColor: '#36691D',
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 5,

@@ -4,7 +4,7 @@ import styles from './styles';
 import { useNavigation } from '@react-navigation/native';
 
 const mockUsers = [
-    { id: 1, email: 'user@example.com', name: 'Otavio', tickets: 5 },
+    { id: 1, email: 'user@example.com', name: 'Otavio', tickets: 0 },
     { id: 2, email: 'admin@admin.com', name: 'Admin', tickets: 10 },
 ];
 
@@ -13,6 +13,8 @@ export default function Admin() {
     const [nameInput, setNameInput] = useState('');
     const [user, setUser] = useState<{ name: string, tickets: number, id: number } | null>(null);
     const [error, setError] = useState<string | null>(null);
+    const [addValue, setAddValue] = useState('');
+    const [removeValue, setRemoveValue] = useState('');
     //código com base de dados 
     /*const { data: users, error: searchError } = await supabase
   .from('users') // Nome da tabela
@@ -36,7 +38,7 @@ if (users && users.length > 0) {
         if (foundUser) {
             setUser(foundUser);
         } else {
-            setError('User not found');
+            setError('Usuário não encontrado');
             setUser(null);
         }
     };
@@ -80,26 +82,27 @@ if (users && users.length > 0) {
         setError('Nenhum ticket para remover');
       }
     }*/
-    const handleAddTicket = () => {
-        if (user) {
-            const updatedUser = { ...user, tickets: user.tickets + 1 };
-            setUser(updatedUser);
-            alert('Ticket added successfully');
+    const handleAddTickets = () => {
+        if (user && addValue) {
+            const newTickets = user.tickets + parseInt(addValue);
+            setUser({ ...user, tickets: newTickets });
+            setAddValue('');
+            alert('Tickets adicionados com sucesso');
         }
     };
 
-    const handleRemoveTicket = () => {
-        if (user) {
-            if (user.tickets > 0) {
-                const updatedUser = { ...user, tickets: user.tickets - 1 };
-                setUser(updatedUser);
-                alert('Ticket removed successfully');
+    const handleRemoveTickets = () => {
+        if (user && removeValue) {
+            const newTickets = user.tickets - parseInt(removeValue);
+            if (newTickets >= 0) {
+                setUser({ ...user, tickets: newTickets });
+                setRemoveValue('');
+                alert('Tickets removidos com sucesso');
             } else {
-                setError('No tickets to remove');
-            }
+                setError('Não há tickets suficientes para remover');
+            } 5
         }
     };
-
     const handleLogout = () => {
         // Clear any user session or authentication details here
         navigation.navigate('SignIn');
@@ -115,7 +118,6 @@ if (users && users.length > 0) {
                 value={nameInput}
                 onChangeText={setNameInput}
             />
-
             <TouchableOpacity
                 style={styles.button}
                 onPress={handleSearch}
@@ -128,18 +130,32 @@ if (users && users.length > 0) {
                     <Text style={styles.infoText}>Nome: {user.name}</Text>
                     <Text style={styles.infoText}>Número de Matrícula: {user.id}</Text>
 
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Adicionar valor de tickets"
+                        keyboardType="numeric"
+                        value={addValue}
+                        onChangeText={setAddValue}
+                    />
                     <TouchableOpacity
                         style={styles.button}
-                        onPress={handleAddTicket}
+                        onPress={handleAddTickets}
                     >
-                        <Text style={styles.buttonText}>Adicionar Ticket</Text>
+                        <Text style={styles.buttonText}>Adicionar Tickets</Text>
                     </TouchableOpacity>
 
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Remover valor de tickets"
+                        keyboardType="numeric"
+                        value={removeValue}
+                        onChangeText={setRemoveValue}
+                    />
                     <TouchableOpacity
                         style={styles.button}
-                        onPress={handleRemoveTicket}
+                        onPress={handleRemoveTickets}
                     >
-                        <Text style={styles.buttonText}>Remover Ticket</Text>
+                        <Text style={styles.buttonText}>Remover Tickets</Text>
                     </TouchableOpacity>
 
                     <Text style={styles.infoText}>Tickets: {user.tickets}</Text>

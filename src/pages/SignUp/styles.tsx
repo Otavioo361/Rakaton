@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#d8b7ff",
+        backgroundColor: "#1a1a1a",
     },
 
     containerHeader: {
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     },
 
     button: {
-        backgroundColor: "#871cfe",
+        backgroundColor: "#36691D",
         width: '100%',
         borderRadius: 8,
         paddingVertical: 8,
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     },
 
     registerText: {
-        color: "#8d8d99",
+        color: "#1a1a1a",
     }
 })
 
