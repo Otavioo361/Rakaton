@@ -1,19 +1,28 @@
-import React from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity
-} from 'react-native';
-
+import React, { useState } from 'react';
+import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import * as Animatable from 'react-native-animatable';
-
 import { useNavigation } from '@react-navigation/native';
-import styles from "./styles";
+import { supabase } from '../../services/supabase'; // Certifique-se de que o caminho está correto
+import styles from './styles';
 
 export default function SignIn() {
   const navigation = useNavigation();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+
+  const handleSignIn = async () => {
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password
+    });
+
+    if (error) {
+      setError(error.message);
+    } else {
+      navigation.navigate('Home');
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -32,6 +41,8 @@ export default function SignIn() {
         <Text style={styles.title}>E-mail</Text>
         <TextInput
           placeholder="Informe e-mail de acesso..."
+          value={email}
+          onChangeText={setEmail}
           style={styles.input}
         />
 
@@ -39,19 +50,23 @@ export default function SignIn() {
         <TextInput
           placeholder="Informe senha de acesso..."
           secureTextEntry={true}
+          value={password}
+          onChangeText={setPassword}
           style={styles.input}
         />
 
+        {error ? <Text style={styles.errorText}>{error}</Text> : null}
+
         <TouchableOpacity
           style={styles.button}
-          onPress={() => navigation.navigate('Home')}
+          onPress={handleSignIn}
         >
           <Text style={styles.buttonText}>Acessar</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={styles.buttonRegister}
-          onPress={() => navigation.navigate('SignUp')} // Navega para a tela SignUp
+          onPress={() => navigation.navigate('SignUp')} // Certifique-se de que 'SignUp' está correto
         >
           <Text style={styles.registerText}>
             Não possui uma conta? Registre-se...
