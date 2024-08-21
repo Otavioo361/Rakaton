@@ -1,91 +1,86 @@
-// src/pages/Home/styles.tsx
-import { StyleSheet } from "react-native";
-import colors from '../../theme/colors';
+import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.opacity_white,
+    backgroundColor: '#fff',
+    padding: 20,
   },
-
   header: {
-    padding: 16,
+    marginBottom: 20,
   },
-
-  balanceContainer: {
-    backgroundColor: colors.dark_purple,
-    padding: 16,
-    borderRadius: 8,
-    marginBottom: 16,
-    alignItems: 'center',
-  },
-
-  balanceTitle: {
-    fontSize: 18,
-    color: colors.white,
-    fontWeight: 'bold',
-    marginBottom: 8,
-  },
-
-  balanceValue: {
+  username: {
     fontSize: 24,
-    color: colors.white,
     fontWeight: 'bold',
-    marginBottom: 16,
+    marginBottom: 10,
   },
-
-  scrollArea: {
-    marginTop: 80,
+  buttonContainer: {
+    marginTop: 20, // Adiciona espaço acima do botão
   },
-
-  title: {
+  button: {
+    backgroundColor: '#871cfe',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    marginVertical: 5,
+  },
+  logoutButton: {
+    backgroundColor: '#e74c3c',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    marginVertical: 5,
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 16,
+    textAlign: 'center',
+  },
+  ticketContainer: {
+    marginBottom: 20,
+  },
+  ticketHeader: {
     fontSize: 18,
     fontWeight: 'bold',
-    margin: 14,
   },
-
-  list: {
-    marginStart: 14,
-    marginEnd: 14,
+  ticketCount: {
+    fontSize: 32,
+    fontWeight: 'bold',
+    marginTop: 10,
   },
-
-  buttonContainer: {
-    margin: 16,
-    alignItems: 'center',
+  movementsContainer: {
+    flex: 1,
   },
-
-  button: {
-    backgroundColor: colors.dark_purple,
-    borderRadius: 8,
-    paddingVertical: 12,
-    paddingHorizontal: 24,
-    marginVertical: 8,
+  movementsHeader: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  movementText: {
+    fontSize: 16,
+    marginVertical: 5,
+  },
+  modalContainer: {
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,0.5)',
   },
-
-  buttonText: {
-    color: colors.white,
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-
   modalContent: {
-    backgroundColor: colors.white,
+    backgroundColor: '#fff',
     padding: 20,
-    borderRadius: 8,
+    borderRadius: 10,
     alignItems: 'center',
   },
-
   modalText: {
     fontSize: 18,
-    fontWeight: 'bold',
+    marginBottom: 20,
   },
-
-  fileItemText: {
-    fontSize: 16,
-    color: colors.black,
-    marginVertical: 4,
+  modalButton: {
+    backgroundColor: '#871cfe',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
   },
 });
 

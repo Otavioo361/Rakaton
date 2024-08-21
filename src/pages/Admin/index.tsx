@@ -1,165 +1,159 @@
-// src/pages/Admin/index.tsx
+import React, { useState } from 'react';
+import { View, Text, TextInput, TouchableOpacity } from 'react-native';
+import styles from './styles';
+import { useNavigation } from '@react-navigation/native';
 
-import React, { useState, useEffect } from 'react';
-import {
-    View,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    Alert,
-    StyleSheet,
-} from 'react-native';
-import { supabase } from '../../services/supabase';
-import colors from '../../theme/colors';
+const mockUsers = [
+    { id: 1, email: 'user@example.com', name: 'Otavio', tickets: 5 },
+    { id: 2, email: 'admin@admin.com', name: 'Admin', tickets: 10 },
+];
 
 export default function Admin() {
-    const [email, setEmail] = useState('');
-    const [name, setName] = useState('');
-    const [amountToDeduct, setAmountToDeduct] = useState('');
-    const [isAdmin, setIsAdmin] = useState(false);
+    const navigation = useNavigation();
+    const [nameInput, setNameInput] = useState('');
+    const [user, setUser] = useState<{ name: string, tickets: number, id: number } | null>(null);
+    const [error, setError] = useState<string | null>(null);
+    //código com base de dados 
+    /*const { data: users, error: searchError } = await supabase
+  .from('users') // Nome da tabela
+  .select('*')
+  .eq('name', nameInput); // Filtro pelo nome
 
-    useEffect(() => {
-        const checkAdmin = async () => {
-            try {
-                const storedEmail = await AsyncStorage.getItem('user_email');
-                if (storedEmail) {
-                    const { data, error } = await supabase
-                        .from('users')
-                        .select('is_admin')
-                        .eq('email', storedEmail)
-                        .single();
+if (searchError) {
+  setError('Erro ao buscar usuário');
+  return;
+}
 
-                    if (error || !data || !data.is_admin) {
-                        Alert.alert('Acesso Negado', 'Você não tem permissão para acessar esta página');
-                        // Redirecionar ou encerrar a tela
-                    } else {
-                        setIsAdmin(true);
-                    }
-                }
-            } catch (error) {
-                Alert.alert('Erro', 'Erro ao verificar permissões');
-            }
-        };
-
-        checkAdmin();
-    }, []);
-
-    const fetchUserName = async () => {
-        try {
-            const { data, error } = await supabase
-                .from('users')
-                .select('name')
-                .eq('email', email)
-                .single();
-
-            if (error || !data) {
-                Alert.alert('Erro', 'Usuário não encontrado');
-                setName('');
-            } else {
-                setName(data.name);
-            }
-        } catch (error) {
-            Alert.alert('Erro', 'Erro ao buscar dados do usuário');
+if (users && users.length > 0) {
+  setUser(users[0]);
+} else {
+  setError('Usuário não encontrado');
+  setUser(null);
+}*/
+    const handleSearch = () => {
+        setError(null);
+        const foundUser = mockUsers.find(user => user.name.toLowerCase() === nameInput.toLowerCase());
+        if (foundUser) {
+            setUser(foundUser);
+        } else {
+            setError('User not found');
+            setUser(null);
         }
     };
+    //código com base de dados 
+    /*const handleAddTicket = async () => {
+    if (user) {
+      // Atualiza o número de tickets no banco de dados
+      const { error: updateError } = await supabase
+        .from('users') // Nome da tabela
+        .update({ tickets: user.tickets + 1 })
+        .eq('id', user.id); // Filtro pelo ID
 
-    const deductBalance = async () => {
-        if (isNaN(parseFloat(amountToDeduct)) || parseFloat(amountToDeduct) <= 0) {
-            Alert.alert('Erro', 'Insira um valor válido para descontar');
-            return;
-        }
+      if (updateError) {
+        setError('Erro ao adicionar ticket');
+        return;
+      }
 
-        try {
-            const { data, error } = await supabase
-                .from('movements')
-                .update({ value: -amountToDeduct })
-                .eq('user_email', email)
-                .single();
-
-            if (error) {
-                Alert.alert('Erro', 'Erro ao descontar saldo');
-            } else {
-                Alert.alert('Sucesso', 'Saldo descontado com sucesso');
-            }
-        } catch (error) {
-            Alert.alert('Erro', 'Erro ao atualizar saldo');
-        }
-    };
-
-    if (!isAdmin) {
-        return (
-            <View style={styles.container}>
-                <Text style={styles.title}>Acesso Negado</Text>
-            </View>
-        );
+      setUser({ ...user, tickets: user.tickets + 1 });
+      alert('Ticket adicionado com sucesso');
     }
+  };*/
+
+
+    /*  const handleRemoveTicket = async () => {
+    if (user) {
+      if (user.tickets > 0) {
+        // Atualiza o número de tickets no banco de dados
+        const { error: updateError } = await supabase
+          .from('users') // Nome da tabela
+          .update({ tickets: user.tickets - 1 })
+          .eq('id', user.id); // Filtro pelo ID
+
+        if (updateError) {
+          setError('Erro ao remover ticket');
+          return;
+        }
+
+        setUser({ ...user, tickets: user.tickets - 1 });
+        alert('Ticket removido com sucesso');
+      } else {
+        setError('Nenhum ticket para remover');
+      }
+    }*/
+    const handleAddTicket = () => {
+        if (user) {
+            const updatedUser = { ...user, tickets: user.tickets + 1 };
+            setUser(updatedUser);
+            alert('Ticket added successfully');
+        }
+    };
+
+    const handleRemoveTicket = () => {
+        if (user) {
+            if (user.tickets > 0) {
+                const updatedUser = { ...user, tickets: user.tickets - 1 };
+                setUser(updatedUser);
+                alert('Ticket removed successfully');
+            } else {
+                setError('No tickets to remove');
+            }
+        }
+    };
+
+    const handleLogout = () => {
+        // Clear any user session or authentication details here
+        navigation.navigate('SignIn');
+    };
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Administração</Text>
+            <Text style={styles.title}>Administração de Usuários</Text>
 
             <TextInput
                 style={styles.input}
-                placeholder="Informe o e-mail do usuário"
-                value={email}
-                onChangeText={setEmail}
+                placeholder="Digite o nome do usuário"
+                value={nameInput}
+                onChangeText={setNameInput}
             />
-            <TouchableOpacity style={styles.button} onPress={fetchUserName}>
-                <Text style={styles.buttonText}>Buscar Nome</Text>
+
+            <TouchableOpacity
+                style={styles.button}
+                onPress={handleSearch}
+            >
+                <Text style={styles.buttonText}>Buscar Usuário</Text>
             </TouchableOpacity>
 
-            {name ? (
+            {user ? (
                 <>
-                    <Text style={styles.nameText}>Nome: {name}</Text>
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Valor para descontar"
-                        keyboardType="numeric"
-                        value={amountToDeduct}
-                        onChangeText={setAmountToDeduct}
-                    />
-                    <TouchableOpacity style={styles.button} onPress={deductBalance}>
-                        <Text style={styles.buttonText}>Descontar Saldo</Text>
+                    <Text style={styles.infoText}>Nome: {user.name}</Text>
+                    <Text style={styles.infoText}>Número de Matrícula: {user.id}</Text>
+
+                    <TouchableOpacity
+                        style={styles.button}
+                        onPress={handleAddTicket}
+                    >
+                        <Text style={styles.buttonText}>Adicionar Ticket</Text>
                     </TouchableOpacity>
+
+                    <TouchableOpacity
+                        style={styles.button}
+                        onPress={handleRemoveTicket}
+                    >
+                        <Text style={styles.buttonText}>Remover Ticket</Text>
+                    </TouchableOpacity>
+
+                    <Text style={styles.infoText}>Tickets: {user.tickets}</Text>
                 </>
             ) : null}
+
+            {error ? <Text style={styles.errorText}>{error}</Text> : null}
+
+            <TouchableOpacity
+                style={styles.logoutButton}
+                onPress={handleLogout}
+            >
+                <Text style={styles.buttonText}>Logout</Text>
+            </TouchableOpacity>
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        padding: 16,
-        backgroundColor: colors.opacity_white,
-    },
-    title: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        marginBottom: 16,
-    },
-    input: {
-        borderBottomWidth: 1,
-        borderBottomColor: colors.gray_300,
-        height: 40,
-        marginBottom: 12,
-        fontSize: 16,
-    },
-    button: {
-        backgroundColor: colors.dark_purple,
-        borderRadius: 8,
-        paddingVertical: 12,
-        alignItems: 'center',
-        marginBottom: 16,
-    },
-    buttonText: {
-        color: colors.white,
-        fontSize: 18,
-        fontWeight: 'bold',
-    },
-    nameText: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        marginBottom: 12,
-    },
-});

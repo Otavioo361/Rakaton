@@ -1,8 +1,10 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
 import Welcome from '../pages/Welcome';
 import SignIn from '../pages/SignIn';
-import SignUp from '../pages/SignUp'; // Import da tela SignUp
+import SignUp from '../pages/SignUp';
 import Home from '../pages/Home';
+import Admin from '../pages/Admin'; // Importando a tela Admin
 
 const Stack = createNativeStackNavigator();
 
@@ -22,7 +24,7 @@ export default function Routes() {
       />
 
       <Stack.Screen
-        name="SignUp" // Nome da rota deve ser SignUp
+        name="SignUp"
         component={SignUp}
         options={{ headerShown: false }}
       />
@@ -30,6 +32,12 @@ export default function Routes() {
       <Stack.Screen
         name="Home"
         component={Home}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        name="Admin"
+        component={Admin} // Adicionando a rota para a tela Admin
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
